@@ -41,7 +41,7 @@ namespace NSE.Identidade.Api
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            var appSettingsSection = Configuration.GetSection("AppSetting");
+            var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             var appSettings = appSettingsSection.Get<AppSettings>();
