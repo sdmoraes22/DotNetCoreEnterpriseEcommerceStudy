@@ -53,6 +53,7 @@ namespace NSE.WebApp.MVC.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(UsuarioLogin usuarioLogin)
         {
+
             if (!ModelState.IsValid) return View(usuarioLogin);
             
             var response = await _autenticacaoService.Login(usuarioLogin);
