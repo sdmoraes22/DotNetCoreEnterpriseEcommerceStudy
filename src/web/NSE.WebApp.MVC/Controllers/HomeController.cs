@@ -21,7 +21,7 @@ namespace NSE.WebApp.MVC.Controllers
             return View();
         }
 
-        [Route("erro/id:length(3,3)")]
+        [Route("erro/{id:length(3,3)}")]
         public IActionResult Error(int id)
         {
             var modelErro = new ErrorViewModel();
