@@ -15,7 +15,7 @@ namespace NSE.WebApp.MVC
             var builder = new ConfigurationBuilder()
                     .SetBasePath(hostEnviroment.ContentRootPath)
                     .AddJsonFile("appsettings.json", true, true)
-                    .AddJsonFile($"appsettings{hostEnviroment.EnvironmentName}.json", true, true)
+                    .AddJsonFile($"appsettings.{hostEnviroment.EnvironmentName}.json", true, true)
                     .AddEnvironmentVariables();
 
             if (hostEnviroment.IsDevelopment())
