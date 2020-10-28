@@ -21,6 +21,31 @@ namespace NSE.Catalogo.API.Configuration
                     Contact = new OpenApiContact() { Name = "Cristiano Moraes", Email = "contato@contato.teste" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/MIT") }
                 });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Inisira o token jwt desta maneira: Bearer {seu token}",
+                    Name = "Authorization",
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
             });
 
             return services;
