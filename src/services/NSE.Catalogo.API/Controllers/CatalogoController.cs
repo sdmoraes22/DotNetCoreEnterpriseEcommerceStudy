@@ -31,6 +31,7 @@ namespace NSE.Catalogo.API.Controllers
         [ClaimsAuthorize("Catalogo", "Ler")]
         public async Task<Produto> ProdutoDetalhe(Guid id)
         {
+            throw new Exception("Erro");
             return await _produtoRepository.ObterPorId(id);
         }
     }
