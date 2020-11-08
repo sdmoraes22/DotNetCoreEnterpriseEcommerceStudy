@@ -1,5 +1,5 @@
-﻿using NSE.Core.DomainObjects;
-using System;
+﻿using System;
+using NSE.Core.DomainObjects;
 
 namespace NSE.Clientes.API.Models
 {
@@ -14,7 +14,8 @@ namespace NSE.Clientes.API.Models
         public string Estado { get; private set; }
         public Guid ClienteId { get; private set; }
 
-        public Cliente Cliente { get; set; }
+        // EF Relation
+        public Cliente Cliente { get; protected set; }
 
         public Endereco(string logradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado)
         {

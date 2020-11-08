@@ -6,19 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Clientes.API.Data;
 using NSE.WebApi.Core.Identidade;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace NSE.Clientes.API.Configuration
 {
     public static class ApiConfig
     {
-        public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration )
+        public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ClienteContext>(options =>
+            services.AddDbContext<ClientesContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();
@@ -29,8 +24,8 @@ namespace NSE.Clientes.API.Configuration
                     builder =>
                         builder
                             .AllowAnyOrigin()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod());
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
             });
         }
 
@@ -43,9 +38,10 @@ namespace NSE.Clientes.API.Configuration
 
             app.UseHttpsRedirection();
 
-
             app.UseRouting();
+
             app.UseCors("Total");
+
             app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>

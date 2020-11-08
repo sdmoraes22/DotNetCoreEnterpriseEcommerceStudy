@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NSE.Clientes.API.Data;
 
 namespace NSE.Clientes.API.Migrations
 {
-    [DbContext(typeof(ClienteContext))]
-    [Migration("20201105194220_Clientes")]
-    partial class Clientes
+    [DbContext(typeof(ClientesContext))]
+    partial class ClientesContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +59,6 @@ namespace NSE.Clientes.API.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Complemento")
-                        .IsRequired()
                         .HasColumnType("varchar(250)");
 
                     b.Property<string>("Estado")

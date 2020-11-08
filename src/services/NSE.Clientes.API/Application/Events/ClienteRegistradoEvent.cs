@@ -1,9 +1,5 @@
-﻿using NSE.Core.DomainObjects;
+﻿using System;
 using NSE.Core.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NSE.Clientes.API.Application.Events
 {
@@ -11,8 +7,8 @@ namespace NSE.Clientes.API.Application.Events
     {
         public Guid Id { get; private set; }
         public string Nome { get; private set; }
-        public string Cpf { get; private set; }
         public string Email { get; private set; }
+        public string Cpf { get; private set; }
 
         public ClienteRegistradoEvent(Guid id, string nome, string email, string cpf)
         {
@@ -22,6 +18,5 @@ namespace NSE.Clientes.API.Application.Events
             Email = email;
             Cpf = cpf;
         }
-
     }
 }

@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NSE.Clientes.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NSE.Clientes.API.Data.Mappings
 {
@@ -27,7 +23,6 @@ namespace NSE.Clientes.API.Data.Mappings
                 .HasColumnType("varchar(20)");
 
             builder.Property(c => c.Complemento)
-                .IsRequired()
                 .HasColumnType("varchar(250)");
 
             builder.Property(c => c.Bairro)

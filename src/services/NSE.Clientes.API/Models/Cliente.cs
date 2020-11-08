@@ -1,5 +1,5 @@
-﻿using NSE.Core.DomainObjects;
-using System;
+﻿using System;
+using NSE.Core.DomainObjects;
 
 namespace NSE.Clientes.API.Models
 {
@@ -11,6 +11,9 @@ namespace NSE.Clientes.API.Models
         public bool Excluido { get; private set; }
         public Endereco Endereco { get; private set; }
 
+        // EF Relation
+        protected Cliente() { }
+
         public Cliente(Guid id, string nome, string email, string cpf)
         {
             Id = id;
@@ -19,9 +22,6 @@ namespace NSE.Clientes.API.Models
             Cpf = new Cpf(cpf);
             Excluido = false;
         }
-
-        //EF Rellation
-        protected Cliente() { }
 
         public void TrocarEmail(string email)
         {

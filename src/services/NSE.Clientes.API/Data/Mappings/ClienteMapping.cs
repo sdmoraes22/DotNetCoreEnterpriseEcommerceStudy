@@ -2,10 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NSE.Clientes.API.Models;
 using NSE.Core.DomainObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NSE.Clientes.API.Data.Mappings
 {
@@ -36,6 +32,7 @@ namespace NSE.Clientes.API.Data.Mappings
                     .HasColumnType($"varchar({Email.EnderecoMaxLength})");
             });
 
+            // 1 : 1 => Aluno : Endereco
             builder.HasOne(c => c.Endereco)
                 .WithOne(c => c.Cliente);
 

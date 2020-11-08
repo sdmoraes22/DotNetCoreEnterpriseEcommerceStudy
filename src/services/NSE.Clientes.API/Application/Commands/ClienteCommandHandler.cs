@@ -1,17 +1,14 @@
 ﻿using FluentValidation.Results;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 using NSE.Clientes.API.Application.Events;
 using NSE.Clientes.API.Models;
 using NSE.Core.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NSE.Clientes.API.Application.Commands
 {
-    public class ClienteCommandHandler : CommandHandler, 
+    public class ClienteCommandHandler : CommandHandler,
         IRequestHandler<RegistrarClienteCommand, ValidationResult>
     {
         private readonly IClienteRepository _clienteRepository;
@@ -20,7 +17,7 @@ namespace NSE.Clientes.API.Application.Commands
         {
             _clienteRepository = clienteRepository;
         }
-
+        
         public async Task<ValidationResult> Handle(RegistrarClienteCommand message, CancellationToken cancellationToken)
         {
             if (!message.EhValido()) return message.ValidationResult;
@@ -29,18 +26,17 @@ namespace NSE.Clientes.API.Application.Commands
 
             var clienteExistente = await _clienteRepository.ObterPorCpf(cliente.Cpf.Numero);
 
-            if(clienteExistente != null)
+            if (clienteExistente != null)
             {
-                AdicionarErro("Este CPF já está em uso");
+                AdicionarErro("Este CPF já está em uso.");
                 return ValidationResult;
             }
 
             _clienteRepository.Adicionar(cliente);
 
-            cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome,message.Email, message.Cpf));
+            cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
 
             return await PersistirDados(_clienteRepository.UnitOfWork);
-
         }
     }
 }

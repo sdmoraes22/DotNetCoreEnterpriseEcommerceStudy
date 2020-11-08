@@ -7,10 +7,6 @@ using NSE.Clientes.API.Data;
 using NSE.Clientes.API.Data.Repository;
 using NSE.Clientes.API.Models;
 using NSE.Core.Mediator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NSE.Clientes.API.Configuration
 {
@@ -20,11 +16,11 @@ namespace NSE.Clientes.API.Configuration
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<IRequestHandler<RegistrarClienteCommand, ValidationResult>, ClienteCommandHandler>();
-            
+
             services.AddScoped<INotificationHandler<ClienteRegistradoEvent>, ClienteEventHandler>();
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
-            services.AddScoped<ClienteContext>();
+            services.AddScoped<ClientesContext>();
         }
     }
 }
