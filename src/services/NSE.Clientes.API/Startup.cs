@@ -40,6 +40,8 @@ namespace NSE.Clientes.API
             services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
+
+            services.AddMessageConfiguration(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

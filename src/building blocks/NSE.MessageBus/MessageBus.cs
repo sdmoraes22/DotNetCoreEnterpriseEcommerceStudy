@@ -1,11 +1,8 @@
 ﻿using EasyNetQ;
-using EasyNetQ.ConnectionString;
 using NSE.Core.Messages.Integration;
 using Polly;
 using RabbitMQ.Client.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NSE.MessageBus
@@ -77,8 +74,6 @@ namespace NSE.MessageBus
             TryConnect();
             return await _bus.Rpc.RespondAsync(responder);
         }
-
-        
 
         private void TryConnect()
         {
