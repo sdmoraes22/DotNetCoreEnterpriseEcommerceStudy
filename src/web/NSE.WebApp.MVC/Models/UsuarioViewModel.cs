@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using NSE.WebApp.MVC.Extensions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace NSE.WebApp.MVC.Models
@@ -10,13 +13,25 @@ namespace NSE.WebApp.MVC.Models
     public class UsuarioRegistro
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [DisplayName("Nome Completo")]
+        public string Nome { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [DisplayName("CPF")]
+        [Cpf]
+        public string Cpf { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} está em formato inválido")]
         public string Email { get; set; }
+        
         [Required(ErrorMessage = "Confirme a senha")]
         [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 6)]
         public string Senha { get; set; }
+        
         [Required]
         [Compare("Senha", ErrorMessage = "As senhas não conferem")]
+        [DisplayName("Confime sua senha")]
         public string SenhaConfirmacao { get; set; }
     }
 
