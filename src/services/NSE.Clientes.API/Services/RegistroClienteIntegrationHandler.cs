@@ -18,7 +18,7 @@ namespace NSE.Clientes.API.Services
         private IBus _bus;
         private readonly IServiceProvider _serviceProvider;
 
-        public RegistroClienteIntegrationHandler(IBus bus, IServiceProvider serviceProvider)
+        public RegistroClienteIntegrationHandler(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }
@@ -40,7 +40,7 @@ namespace NSE.Clientes.API.Services
 
             using(var scope = _serviceProvider.CreateScope())
             {
-                var mediator = _serviceProvider.GetRequiredService<IMediatorHandler>();
+                var mediator = scope.ServiceProvider.GetRequiredService<IMediatorHandler>();
                 sucesso = await mediator.EnviarComando(clienteCommand);
             }
 
