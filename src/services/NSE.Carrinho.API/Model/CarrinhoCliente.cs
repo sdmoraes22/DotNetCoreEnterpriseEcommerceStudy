@@ -50,5 +50,26 @@ namespace NSE.Carrinho.API.Model
             Itens.Add(item);
             CalcularValorCarrinho();
         }
+
+
+        internal void AtualizarItem(CarrinhoItem item)
+        {
+            if (!item.EhValido()) return;
+
+            item.AssociarCarrinho(Id);
+
+            var itemExistente = ObterProdutoPorId(item.ProdutoId);
+            
+            Itens.Remove(itemExistente);
+            Itens.Add(item);
+
+            CalcularValorCarrinho();
+        }
+
+        internal void AtualizarUnidades(CarrinhoItem item, int unidades)
+        {
+            item.AtualizarUnidades(unidades);
+            AtualizarItem(item);
+        }
     }
 }
