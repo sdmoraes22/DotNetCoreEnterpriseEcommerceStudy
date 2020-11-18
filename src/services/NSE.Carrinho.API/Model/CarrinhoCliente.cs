@@ -71,5 +71,11 @@ namespace NSE.Carrinho.API.Model
             item.AtualizarUnidades(unidades);
             AtualizarItem(item);
         }
+
+        internal void RemoverItem(CarrinhoItem item)
+        {
+            Itens.Remove(ObterProdutoPorId(item.ProdutoId));
+            CalcularValorCarrinho();
+        }
     }
 }
