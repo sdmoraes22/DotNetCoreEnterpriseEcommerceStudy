@@ -17,10 +17,19 @@ namespace NSE.WebApp.MVC.Configuration
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IValidationAttributeAdapterProvider, CpfValidationAdapterProvider>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
+
+
+            #region Http Services
             services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
             
-            services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
-            
+            services.AddHttpClient<IAutenticacaoService, AutenticacaoService>()
+                .AddPolicyHandler(RetryPolicyExtension.WaitAndRetry())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+
+
             services.AddHttpClient<ICatalogoService, CatalogoService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
                 //.AddTransientHttpErrorPolicy(
@@ -29,6 +38,12 @@ namespace NSE.WebApp.MVC.Configuration
                 .AddTransientHttpErrorPolicy(
                     p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
+            services.AddHttpClient<ICarrinhoService, CarrinhoService>()
+                .AddPolicyHandler(RetryPolicyExtension.WaitAndRetry())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+
+            #endregion
 
             #region Refit
             //services.AddHttpClient("Refit", 
@@ -40,9 +55,6 @@ namespace NSE.WebApp.MVC.Configuration
             //.AddTypedClient(Refit.RestService.For<ICatalogoServiceRefit>);
             #endregion
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
-            services.AddScoped<IAspNetUser, AspNetUser>();
         }
     }
 }
